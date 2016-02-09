@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords" content="JS代码,焦点图,JS广告代码,JS特效代码" />
+<meta name="description" content="aaa" />
+<title>aaa</title>
+<SCRIPT src="js/tbhb.js" type=text/javascript></SCRIPT>
+<LINK href="css/d.css" type=text/css rel=stylesheet>
+</head>
+
+<body>
+
+<DIV class=main-wrap>
+	<DIV id=slide-box>
+		<B class=corner></B>
+		<DIV class=slide-content id=J_slide>
+			<DIV class=wrap>
+				<UL class=ks-switchable-content>
+				  <LI><A href="" target=_blank><IMG alt="aaa" src="images/map.jpg"></A></LI>
+				  <LI><A href="" target=_blank><IMG alt="aaa" src="images/map.jpg"></A></LI>
+				  <LI><A href="" target=_blank><IMG alt="aaa" src="images/map.jpg"></A></LI>
+				  <LI><A href="" target=_blank><IMG alt="aaa" src="images/map.jpg"></A></LI>
+				  <LI><A href="" target=_blank><IMG alt="aaa" src="images/map.jpg"></A></LI>
+				  <LI><A href="" target=_blank><IMG alt="aaa" src="images/map.jpg"></A></LI>
+				</UL>
+			</DIV>
+			<DIV class=ks-switchable-triggers>
+				<A class=prev id=J_prev href="javascript:void(0);">
+				<B class=corner></B><SPAN>&#8249;</SPAN><B class=corner></B></A> 
+				<A class=next id=J_next href="javascript:void(0);">
+				<B class=corner></B><SPAN>&#8250;</SPAN><B class=corner></B></A>			</DIV>
+		</DIV>
+		<B class=corner></B>	</DIV>
+</DIV>
+
+<SCRIPT type=text/javascript>
+	var D=YAHOO.util.Dom, E=YAHOO.util.Event;
+
+	KISSY().use("*", function(S) {
+		var el = D.get('J_slide'),
+			activeIndex = parseInt(el.getAttribute('data-active-index')) || 0;
+
+		var carousel = new S.Carousel(el, {
+			hasTriggers: false,
+			navCls: 'ks-switchable-nav',
+			contentCls: 'ks-switchable-content',
+			activeTriggerCls: 'current',
+			effect: "scrollx",
+			steps: 2,
+			viewSize: [615],
+			activeIndex: activeIndex
+		});
+		
+		E.on('J_prev', 'click', carousel.prev, carousel, true);
+		E.on('J_next', 'click', carousel.next, carousel, true);
+	});
+
+	KISSY().use("*", function(S) {
+		var el = D.get('J_shoppingGuide');
+		if(!el){
+			return;
+		}
+		var	activeIndex = parseInt(el.getAttribute('data-active-index')) || 0;
+
+		var carousel = new S.Carousel(el, {
+			navCls: 'ks-switchable-nav',
+			contentCls: 'ks-switchable-content',
+			activeTriggerCls: 'current',
+			effect: "scrollx",
+			steps: 4,
+			viewSize: [720],
+			activeIndex: activeIndex
+		});
+		
+		E.on('J_shoppingGuidePrev', 'click', carousel.prev, carousel, true);
+		E.on('J_shoppingGuideNext', 'click', carousel.next, carousel, true);
+	});
+</SCRIPT>
+</body>
+</html>

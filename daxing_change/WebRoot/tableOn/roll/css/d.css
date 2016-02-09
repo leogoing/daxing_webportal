@@ -1,0 +1,55 @@
+/* CSS Document */
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,fieldset,div,strong,label,em{margin:0;padding:0;border:0;}
+ul,ol,li{list-style:none;}
+input,button{margin:0;font-size:12px;vertical-align:middle;}
+body{font-size:2px;font-family:Arial, Helvetica, sans-serif; }
+table{border-collapse:collapse;border-spacing:0;}
+
+#slide-box {
+    MARGIN: 10px auto; WIDTH: 870px; POSITION: relative; HEIGHT: 255px
+}
+#slide-box .corner {
+    CLEAR: both;  DISPLAY: block; MARGIN: 0px 0px; OVERFLOW: hidden; HEIGHT: 0px
+}
+#slide-box .slide-content {
+}
+#slide-box .ks-switchable-triggers A {
+    DISPLAY: block; Z-INDEX: 99; WIDTH: 37px; COLOR: #b4b4b4; POSITION: absolute; TOP: 205px; HEIGHT: 65px; TEXT-DECORATION: none
+}
+#slide-box .ks-switchable-triggers SPAN {
+    DISPLAY: block; BACKGROUND: #4b4b4b; FONT: 700 53px/57px arial; WIDTH: 37px; CURSOR: pointer; HEIGHT: 63px; TEXT-ALIGN: center
+}
+#slide-box .ks-switchable-triggers .corner {
+    BORDER-LEFT-COLOR: #4b4b4b; BORDER-BOTTOM-COLOR: #4b4b4b; BORDER-TOP-COLOR: #4b4b4b; BORDER-RIGHT-COLOR: #4b4b4b
+}
+#slide-box .ks-switchable-triggers .prev {
+    opacity: 0.5;
+    top: 150px;
+    LEFT: 15px
+}
+#slide-box .ks-switchable-triggers .next {
+    opacity: 0.5;
+    top: 150px;
+    RIGHT: 15px
+}
+#slide-box .ks-switchable-triggers A:hover {
+    COLOR: #f43d1e
+}
+#slide-box .ks-switchable-triggers A:hover SPAN {
+    COLOR: #f43d1e
+}
+#slide-box .slide-content {
+    PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+#slide-box .wrap {
+    OVERFLOW: hidden; WIDTH: 870px; HEIGHT: 255px
+}
+#slide-box UL {
+    WIDTH: 10000px
+}
+#slide-box LI {
+    FLOAT: left; WIDTH: 870px; HEIGHT: 255px
+}
+#slide-box LI IMG {
+    WIDTH: 850px; HEIGHT: 255px
+}

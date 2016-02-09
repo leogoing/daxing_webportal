@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yihuan.entity.Admin" table="admin">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="username" type="java.lang.String" column="username"></property>
+		<property name="password" type="java.lang.String" column="password"></property>
+		<property name="power" type="java.lang.Integer" column="power"></property>
+		<property name="forget_question" type="java.lang.String" column="forget_question"></property>
+		<property name="forget_answer" type="java.lang.String" column="forget_answer"></property>
+	</class>
+</hibernate-mapping>

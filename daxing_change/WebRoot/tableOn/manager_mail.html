@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>后台管理页面</title>
+	
+    <meta http-equiv="content-type" content="text/html; charset=gbk">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+	<style type="text/css">
+		*{
+			margin:0px;
+			padding:0px;
+		}
+		#frame{
+			margin: 10px;
+		}
+		table{
+			/*border-collapse:collapse;*/
+			margin: 0 auto;
+			width: 1350px;
+		}
+		table thead tr{
+			height: 50px;
+		}
+		table td{
+			padding: 10px;
+		}
+		#table_title{
+			height: 60px;
+			text-align:center;
+			font-size: 38px;
+		}
+		#foot{
+			height: 70px;
+			text-align: center;
+		}
+		.button{
+			margin:20px;
+			height:30px;
+			width:160px;
+		}
+		.num_input{
+			width: 50px;
+			height: 28px;
+		}
+		.text_input{
+			height:28px;
+		}
+	</style>
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		var pathName = window.document.location.pathname;
+		var path = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+		$(function(){
+			main();
+			
+			$('.delete').click(function(){
+				if(!confirm('确定要删除吗？')){
+					return ;
+				}
+				var index=$(this).index();
+				var date;
+				switch(index){
+					case 0:date=(new Date(new Date().getTime()-31104000000)).toISOString().split("T")[0];break;
+					case 1:date=(new Date(new Date().getTime()-2592000000)).toISOString().split("T")[0];break;
+					case 2:date=prompt('请输入日期(如2015-10-11)：');break;
+					default:return false;
+				}
+			console.log(date);
+				$.ajax({
+					url:path+'/ajax_manager/deleteMails.action',
+					dataType:'json',
+					type:'post',
+					data:{'date':date},
+					success:function(result){
+						alert(result.message);
+						if(result.status==0){
+							$('#refresh').click();
+						}
+					},
+					error:function(){
+						alert('删除错误！');
+					},
+					async:false
+				});
+			});
+			
+			$('#refresh').click(function(){
+				$('#table tr:gt(0)').remove();
+				main();
+			});
+			
+		});
+		
+		function main(){
+			var time=new Date();
+			$.ajax({
+				url:path+'/ajax_manager/findMails.action',
+				dataType:'json',
+				type:'post',
+				data:{'date':time.toISOString().split("T")[0]},
+				success:function(result){
+					if(result.status==0){
+						var val=result.result_Val;
+						for(i=0;i<val.length;i++){
+    						var tr=$(s_tr(val[i]));
+							$('#table').append(tr);
+						}
+					}else{
+						alert(result.message);
+						if(result.status==-1){
+							window.location.href=path+"/tableOn/login.html";
+						}
+					}
+				},
+				error:function(){
+					alert('查找内容异常！');
+				}
+			});
+		}
+		
+		function s_tr(val){
+			var tr='<tr>'+
+						'<td><input readonly="readonly" class="id num_input" type="text" value="'+(val.id!=undefined?val.id:'')+'"/></td>'+
+    					'<td><input readonly="readonly" class="name num_input" type="text" value="'+(val.name!=undefined?val.name:'')+'"/></td>'+
+    					'<td><input readonly="readonly" class="qq_num num_input" type="text" value="'+(val.qq_num!=undefined?val.qq_num:'')+'"/></td>'+
+    					'<td><input readonly="readonly" class="email num_input" type="text" value="'+(val.email!=undefined?val.email:'')+'"/></td>'+
+   						'<td><input readonly="readonly" class="phone num_input" type="text" value="'+(val.phone!=undefined?val.phone:'')+'"></td>'+
+						'<td><textarea readonly="readonly" class="message_val " cols="85" rows="5">'+(val.message_val!=undefined?val.message_val:'')+'</textarea></td>'+
+						'<td><input readonly="readonly" class="job num_input" type="text" value="'+(val.job!=undefined?val.job:'')+'"></td>'+
+    					'<td><input class="create_time text_input" readonly="readonly" type="text" value="'+(val.create_time!=undefined?val.create_time:'插入添加时生成')+'"/></td>'+
+    				'</tr>';
+    		return tr;
+		}
+		
+	</script>
+  </head>
+  
+  <body>
+    
+    <div id="frame">
+    	<p id="table_title">图文内容后台操作表</p>
+    	<div id="div">
+    		<table id="table" border="2px" cellspacing="0px" cellpadding="30px" >
+    			<thead>
+    				<tr>
+    					<th>序列号</th>
+    					<th>留言者姓名</th>
+    					<th>qq号</th>
+    					<th> 邮箱</th>
+    					<th> 电话</th>
+    					<th>留言内容</th>
+    					<th>留言者职业</th>
+    					<th>留言时间</th>
+    				</tr>
+    			</thead>
+    		</table>
+    	</div>
+    	<div id="foot">
+    		<button class="button delete" id="goDieYear">删除一年前留言</button>
+    		<button class="button delete" id="goDieMonth">删除一月前留言</button>
+    		<button class="button delete" id="goDieSome">删除指定日期前留言</button>
+    		<button class="button" id="refresh" >刷新</button>
+    	</div>
+    </div>
+    
+  </body>
+  
+</html>

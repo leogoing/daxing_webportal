@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="daxing_change"
+  id="myeclipse.1442291044315"
+  context-root="/daxing"
+  j2ee-spec="5.0"
+  archive="daxing_change.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head >
+    <meta >
+    <title></title>
+    <style>
+    #a0{
+        overflow: hidden;
+    }
+        .bor{
+            border: 3px solid #fff;
+            width: 890px;
+            height: 100%;
+        }
+    div ul li label{
+        vertical-align:top;
+        display: inline-block;
+        width: 100px;
+    }
+    div ul li{
+        list-style-type:none;
+    }
+    div #inputBox{
+        float: left;
+        margin-top: 5px;
+    }
+    .submit-input{width:100px;height:30px;line-height:18px;border:0;margin:4px 0 0 10px;background:url("images/button3.png");}
+        ul input textarea{
+            /*box-shadow:0px 0px 3px rgba(0, 0, 0, 0.1)*/
+            /*border: 2px solid #cc0000;*/
+             border: 1px solid #E5E5E5;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+            font: 13px/100% Verdana,Tahoma,sans-serif;
+            outline: 0 none;
+            padding: 9px;width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="a0" style="margin: 0px auto;height:560px">
+    
+        <div id="cs">
+            <ul id="outputBox">
+                <li style="height: 20px">地 址： 北京市石景山区阜石路166号泽洋大厦702室</li>
+                <li style="height: 20px">联系人： 鞠玉翔（18070392890）</li>
+                <li style="height: 20px">公司电话： 010-88909396</li>
+                <li style="height: 20px">邮 编： 100043</li>
+                <li style="height: 20px">传 真： 010-52638526转8008</li>
+                <li style="height: 20px">邮 箱： yihuan@yahoo.com</li>
+                <li style="height: 20px">网 址： www.yihuangis.com</li>
+            </ul>
+        </div>
+        <form action="/daxing/main/sendMail.action" method="post" name="myform" id="myform" class="bor">
+        <p style="font-size: 22px;font-weight: bold;">留言与建议</p>
+        <ul id="inputBox">
+            <li style="height: 30px;"><label>姓名：</label><input name="mail.name" id="username" size="20" maxlength="20" type="text"></li>
+            <li style="height: 30px;"><label>QQ：</label><input name="mail.qq_num" id="qq" size="20" maxlength="20" type="text"></li>
+            <li style="height: 30px;"><label>E-mail：</label><input name="mail.email" id="E-mail" size="20" maxlength="20" type="text"></li>
+            <li style="height: 30px;"><label>联系电话：</label><input name="mail.phone" id="telephone" size="20" maxlength="20" type="text"></li>
+            <li style="height: 30px;"><label>职业：</label><input name="mail.job" id="job" size="20" maxlength="20" type="text"></li>
+            <li style="height: 130px;"><label>留言内容：</label><textarea name="mail.message_val" id="content" rows="5" cols="50" value=""></textarea></li>
+            <li style="height: 30px;"><label><input name="mail.id" value="" type="hidden"></label><input name="dosubmit" class="submit-input btn" value=" 提交留言 " type="submit"></li>
+        </ul>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 设置Action的请求后缀为.action,防止Struts2.1将无后缀请求亦当成正常的Action请求处理 -->
+	<constant name="struts.action.extension" value="action"/>
+	<!-- 设置Web应用的默认编码集为gbk -->
+	<constant name="struts.i18n.encoding" value="gbk"/>
+	<!-- 设置Web应用的默认Locale为简体中文 -->
+	<constant name="struts.locale" value="zh_CN" />
+	<!-- 设置Struts2.1应用的国际化资源文件，多个文件中间可用逗号分隔 -->
+	<constant name="struts.custom.i18n.resources" value="messageResource"/>
+	<!-- 设置Struts2.1默认的ObjectFactory为spring -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- 设置Struts2.1应用是否处于开发模式，通常在开发调试阶段设为true,正式上线后可设为false -->
+	<constant name="struts.devMode" value="false" />
+	<!-- 设置Struts2.1允许静态方法调用 -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<!-- 设置Struts2.1的默认主题为simple -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 设置上传文件大小 -->
+	<constant name="struts.multipart.maxSize" value="20971520000"/>
+
+	<package name="interceptor4json" extends="json-default">
+		<interceptors>
+    		<interceptor name="encoding" class="com.yihuan.util.AllInterceptors"></interceptor>
+    		<interceptor-stack name="encode">  
+           		<interceptor-ref name="encoding"></interceptor-ref>  
+           		<interceptor-ref name="defaultStack"></interceptor-ref><!-- 必须引入这个，否则request不会再往下传-->  
+        	</interceptor-stack> 
+    	</interceptors>
+    	<default-interceptor-ref name="encode"></default-interceptor-ref>
+	</package>
+	
+	<package name="interceptor" extends="struts-default">
+		<interceptors>
+    		<interceptor name="encoding" class="com.yihuan.util.AllInterceptors"></interceptor>
+    		<interceptor-stack name="encode">  
+           		<interceptor-ref name="encoding"></interceptor-ref>  
+           		<interceptor-ref name="defaultStack"></interceptor-ref><!-- 必须引入这个，否则request不会再往下传-->  
+        	</interceptor-stack> 
+    	</interceptors>
+    	<default-interceptor-ref name="encode"></default-interceptor-ref>
+    	<global-results>
+            <result name="error">${request.contextPath}/tableOn/error.jsp</result>
+        </global-results>
+	</package>
+	
+    <!-- 定义供异步调用的包，指定命名空间为/ajax -->
+    <package name="ajax" extends="interceptor4json" namespace="/ajax">
+    	<action name="addImg_Text_Val" class="img_Text_ValAction" method="addImg_Text_Val">
+			<result name="success" type="json">
+			</result>
+		</action>
+		<action name="test" class="actionTest" >
+			<result type="json">
+			</result>
+		</action>
+		<action name="findImg_Text_Vals" class="img_Text_ValAction" method="addImg_Text_Val">
+			<result name="success" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+		<action name="findImgs" class="imgAction" method="findImgs">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findTitles" class="titleAction" method="findTitles">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findText_Vals" class="text_ValAction" method="findText_Vals">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="main" class="mainAction" method="main">
+			<result name="success3" type="json"></result>
+		</action>
+		<action name="addText_Val" class="text_ValAction" method="addText_Val">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="checkLogin" class="adminAction" method="checkLogin">
+			<result  name="success"  type="json">
+				<param name="root">result_Mes</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+		<action name="checkAnswer" class="adminAction" method="checkAnswer">
+			<result name="success" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+    </package>
+    
+    <package name="manager" namespace="/ajax_manager" extends="interceptor4json">
+    	<action name="*Titles" class="titleAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+		<action name="*Img_Texts" class="img_Text_ValAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+		<action name="*Texts" class="text_ValAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+		<action name="upload" class="uploadAction">
+            <result type="json" name="success">
+                <param name="root">result</param>
+            </result>
+        </action>
+        <action name="*Imgs" class="imgAction" method="{1}">
+        	<result name="success" type="json">
+        		<param name="root">result_Mes</param>
+        	</result>
+        </action>
+        <action name="*Mails" class="mailAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">result_Mes</param>
+			</result>
+		</action>
+    </package>
+    
+    <package name="main" extends="interceptor" namespace="/main">
+    	<action name="main" class="mainAction" method="main">
+    		<result name="success" >${request.contextPath}/tableOn/mainTest.jsp</result>
+    		<result name="success1" >${request.contextPath}/tableOn/mainTest1.jsp</result>
+    		<result name="success2" >${request.contextPath}/tableOn/mainTest2.jsp</result>
+    		<result name="success3" >${request.contextPath}/tableOn/mainTest3.jsp</result>
+    		<result name="success4" >${request.contextPath}/tableOn/mainTest4.jsp</result>
+    		<result name="success5" >${request.contextPath}/tableOn/mainTest5.jsp</result>
+    		<result name="success6" >${request.contextPath}/tableOn/mainTest6.jsp</result>
+    	</action>
+    	<action name="clearSession" class="clearSessionAction" method="clearSession">
+    		<result name="success" type="redirect">
+    			${request.contextPath}/tableOn/login.html
+    		</result>
+    	</action>
+    	<action name="*Mail" class="mailAction" method="{1}">
+    		<result name="success" >${request.contextPath}/tableOn/success.jsp</result>
+		</action>
+    </package>
+    
+    <package name="admin" extends="interceptor" namespace="/update">
+    	<action name="title" class="titleAction" method="update">
+    		<result name="goMain" type="redirectAction">
+    			<param name="namespace">/main</param>
+    			<param name="actionName">main</param>
+    			<param name="status">${status}</param>
+    			<param name="admin">1</param>
+    		</result>
+    		<result name="error">
+    			<param name="location">${request.contextPath}/tableOn/error.jsp</param>
+    		</result>
+    		<result name="update_page">
+    			<param name="location">${request.contextPath}/tableOn/title.jsp</param>
+    		</result>
+    	</action>
+    </package>
+    <package name="test" extends="interceptor" namespace="/test">
+    	<action name="title" class="actionTest">
+    		
+    	</action>
+    </package>
+</struts>

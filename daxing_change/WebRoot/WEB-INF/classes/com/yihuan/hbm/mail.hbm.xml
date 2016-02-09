@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yihuan.entity.Mail" table="mail">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="name" type="java.lang.String" column="name"></property>
+		<property name="qq_num" type="java.lang.String" column="qq_num"></property>
+		<property name="email" type="java.lang.String" column="email"></property>
+		<property name="phone" type="java.lang.String" column="phone"></property>
+		<property name="message_val" type="java.lang.String" column="message_val"></property>
+		<property name="job" type="java.lang.String" column="job"></property>
+		<property name="ip" type="java.lang.String" column="ip"></property>
+		<property name="create_time" type="java.sql.Date" column="create_time"></property>
+	</class>
+</hibernate-mapping>

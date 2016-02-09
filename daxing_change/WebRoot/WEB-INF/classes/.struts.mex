@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="interceptor4json" location="0,0" size="0,0" />
+  <package name="interceptor" location="0,0" size="0,0" />
+  <package name="ajax" location="0,0" size="0,0">
+    <action name="addImg_Text_Val" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="test" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="findImg_Text_Vals" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="findImgs" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="findTitles" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="findText_Vals" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="main" location="0,0" size="0,0">
+      <result name="success3" />
+    </action>
+    <action name="addText_Val" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="checkLogin" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="error" />
+    </action>
+    <action name="checkAnswer" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <package name="manager" location="0,0" size="0,0">
+    <action name="*Titles" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="*Img_Texts" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="*Texts" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="upload" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="*Imgs" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="*Mails" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <package name="main" location="0,0" size="0,0">
+    <action name="main" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="mainTest.jsp" />
+      </result>
+      <result name="success1">
+        <resourceEdge source="success1" routing="0" target="mainTest1.jsp" />
+      </result>
+      <result name="success2">
+        <resourceEdge source="success2" routing="0" target="mainTest2.jsp" />
+      </result>
+      <result name="success3">
+        <resourceEdge source="success3" routing="0" target="mainTest3.jsp" />
+      </result>
+      <result name="success4">
+        <resourceEdge source="success4" routing="0" target="mainTest4.jsp" />
+      </result>
+      <result name="success5">
+        <resourceEdge source="success5" routing="0" target="mainTest5.jsp" />
+      </result>
+      <result name="success6">
+        <resourceEdge source="success6" routing="0" target="mainTest6.jsp" />
+      </result>
+    </action>
+    <action name="clearSession" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="login.html" />
+      </result>
+    </action>
+    <action name="*Mail" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="success.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="admin" location="0,0" size="0,0">
+    <action name="title" location="0,0" size="0,0">
+      <result name="goMain">
+        <resourceEdge source="goMain" routing="0" target="main" namespace="/main" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="error.jsp" />
+      </result>
+      <result name="update_page">
+        <resourceEdge source="update_page" routing="0" target="title.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="test" location="0,0" size="0,0">
+    <action name="title" location="0,0" size="0,0" />
+  </package>
+  <webResource name="mainTest.jsp" path="${request.contextPath}/tableOn/mainTest.jsp" location="0,0" size="0,0" />
+  <webResource name="mainTest1.jsp" path="${request.contextPath}/tableOn/mainTest1.jsp" location="0,0" size="0,0" />
+  <webResource name="mainTest2.jsp" path="${request.contextPath}/tableOn/mainTest2.jsp" location="0,0" size="0,0" />
+  <webResource name="mainTest3.jsp" path="${request.contextPath}/tableOn/mainTest3.jsp" location="0,0" size="0,0" />
+  <webResource name="mainTest4.jsp" path="${request.contextPath}/tableOn/mainTest4.jsp" location="0,0" size="0,0" />
+  <webResource name="mainTest5.jsp" path="${request.contextPath}/tableOn/mainTest5.jsp" location="0,0" size="0,0" />
+  <webResource name="mainTest6.jsp" path="${request.contextPath}/tableOn/mainTest6.jsp" location="0,0" size="0,0" />
+  <webResource name="login.html" path="${request.contextPath}/tableOn/login.html" location="0,0" size="0,0" />
+  <webResource name="title.jsp" path="${request.contextPath}/tableOn/title.jsp" location="0,0" size="0,0" />
+  <webResource name="error.jsp" path="error.jsp" location="0,0" size="0,0" />
+  <webResource name="error.jsp" path="${request.contextPath}/tableOn/error.jsp" location="0,0" size="0,0" />
+  <webResource name="success.jsp" path="${request.contextPath}/tableOn/success.jsp" location="0,0" size="0,0" />
+  <extendsEdge source="ajax" target="interceptor4json" routing="0" />
+  <extendsEdge source="manager" target="interceptor4json" routing="0" />
+  <extendsEdge source="main" target="interceptor" routing="0" />
+  <extendsEdge source="admin" target="interceptor" routing="0" />
+  <extendsEdge source="test" target="interceptor" routing="0" />
+</Struts2Diagram>
+

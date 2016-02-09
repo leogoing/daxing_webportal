@@ -1,0 +1,45 @@
+<style>
+	#img_val{
+		width:900px;
+		OVERFLOW-X:hidden;
+	}
+	#img_li{
+		position: relative;
+	}
+</style>
+
+<div id="left_button">
+	<a href="#"><img src="images-table/leftarrow.png"/></a>
+</div>
+<div id="img_val" >
+	<div id="img_li">
+		<table  cellspacing="0" cellpadding="0">
+			<tr >
+				<td><img  src="img/map.jpg"></td>
+				<td><img  src="img/map.jpg"></td>
+				<td><img  src="img/map.jpg"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div id="right_button">
+	<a href="#"><img src="images-table/rightarrow.png"/></a>
+</div>
+
+<script type="text/javascript" src="../datepicker/jquery-1.4.3.js"></script>
+
+<script type="text/javascript" >
+	var index=0;
+	$('#left_button').click(function(){
+		if(index<=2){
+			$('#img_li').animate({left:'-=900px'},'1000','linear');
+			index++;
+		}
+	});
+	$('#right_button').click(function(){
+		if(index>=0){
+		$('#img_li').animate({left:'+=900px'},'1000','linear');
+		index--;
+	}
+	});
+</script>

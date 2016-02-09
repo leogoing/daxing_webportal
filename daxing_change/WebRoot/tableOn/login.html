@@ -1,0 +1,138 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD>
+<TITLE>管理登录界面</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" /> 
+<style>
+BODY{PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-FAMILY: "Arial"; BACKGROUND-COLOR: rgb(208, 218, 219); COLOR: #222; FONT-SIZE: 13px; PADDING-TOP: 0px}
+.hide{DISPLAY: none}
+IMG{BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px}
+#logo{TEXT-ALIGN: center; MARGIN: 70px auto 0px; WIDTH: 247px;color: rgb(16, 146, 233);font-size: 21px;font-weight: bold;border: 1px solid rgb(196, 196, 184);border-radius: 8px;font-family: 黑体;background-color: rgb(233, 235, 230);}
+#login{ PADDING: 20px; MARGIN: 50px auto;  WIDTH: 247px; PADDING-TOP: 20px; border-radius: 4px 4px 4px 4px;border: 1px solid rgb(187, 187, 170);background-color: rgba(35, 43, 30, 0.16);}
+#login FORM{PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px}
+#login P{MARGIN: 10px 0px}
+.control-group{MARGIN-BOTTOM: 10px}
+.control-group .icon-lock{BACKGROUND-POSITION: -30px 0px}
+.control-group .icon-mail{BACKGROUND-POSITION: -58px 0px}
+.control-group INPUT{BORDER-BOTTOM: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; PADDING-BOTTOM: 4px; LINE-HEIGHT: 20px; BACKGROUND-COLOR: #ffffff; PADDING-LEFT: 6px; WIDTH: 206px; PADDING-RIGHT: 6px; DISPLAY: inline-block; FONT-FAMILY: "Helvetica Neue", Helvetica, Arial, sans-serif; MARGIN-BOTTOM: 10px; HEIGHT: 20px; COLOR: #555555; MARGIN-LEFT: 0px; FONT-SIZE: 14px; 
+						VERTICAL-ALIGN: middle; BORDER-TOP: #cccccc 1px solid; BORDER-RIGHT: #cccccc 1px solid; PADDING-TOP: 4px; border-radius: 0 4px 4px 0; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s}
+.control-group INPUT:focus{Z-INDEX: 2; OUTLINE-STYLE: dotted; OUTLINE-COLOR: invert; OUTLINE-WIDTH: thin; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6); -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6); -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6)}
+.remember-me{MARGIN-TOP: 0px; DISPLAY: block; MARGIN-BOTTOM: 25px}
+.remember-me span{VERTICAL-ALIGN: middle; display:none;color:red;}
+.remember-me A{FLOAT: right; COLOR: #333; TEXT-DECORATION: none; PADDING-TOP: 1px}
+.remember-me A:hover{BORDER-BOTTOM: #999 1px dashed; COLOR: #999; TEXT-DECORATION: none}
+.login-btn INPUT{BORDER-BOTTOM: 1px solid; BORDER-LEFT: 1px solid; PADDING-BOTTOM: 4px; LINE-HEIGHT: 20px; BACKGROUND-COLOR: rgb(45, 58, 214); MARGIN: 0px auto; PADDING-LEFT: 12px; WIDTH: 80px; PADDING-RIGHT: 12px; DISPLAY: block; BACKGROUND-REPEAT: repeat-x; COLOR: #ffffff; FONT-SIZE: 13px; BORDER-TOP: 1px solid; CURSOR: pointer; BORDER-RIGHT: 1px solid; PADDING-TOP: 4px; border-radius: 4px 4px 4px 4px; 
+					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05); text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)}
+.login-btn INPUT:hover{BACKGROUND-COLOR: rgb(116, 146, 151);}
+.forget-btn{PADDING-TOP: 10px}
+#login-copyright{TEXT-ALIGN: center; PADDING-BOTTOM: 0px; MARGIN: 0px auto; PADDING-LEFT: 10px; WIDTH: 250px; PADDING-RIGHT: 10px; COLOR: #999999; FONT-SIZE: 11px; PADDING-TOP: 10px}
+#login-copyright A{COLOR: #999999; TEXT-DECORATION: none}
+#login-copyright A:hover{BORDER-BOTTOM: #fff 1px dashed; COLOR: #fff; TEXT-DECORATION: none}
+#switch{
+display: none;
+background-color: rgb(238, 237, 246);
+width: 247px;
+text-align: center;
+line-height: 43px;
+border-radius: 8px;
+}
+</style>
+</HEAD>
+<BODY>
+<DIV id=logo><p>北京智环成后台管理系统</p></DIV>
+<DIV id=login>
+<div id=loginform >
+ <P id=info>请输入用户名和密码</P>
+<DIV class=control-group><INPUT type=text id='username' name=username placeholder="Username"></DIV>
+<DIV class=control-group><INPUT type=password id='password' name=password placeholder="Password"> </DIV>
+<DIV class=remember-me><span id="error_in">用户名或密码错误！</span> <A id=forget-password href="/">忘记密码</A></DIV>
+<DIV class=login-btn><INPUT id=login-btn value="登 录" type=submit name=submit></DIV></div>
+<div id=forgotform class=hide >
+<P id=info2>请在第二栏填写初始答案？</P>
+<DIV class=control-group><INPUT type=text id='forget_username' name=forget_username placeholder="用户名">
+<DIV class=control-group><INPUT type=text id='answer' name=answer placeholder="答案"> </DIV>
+ </DIV><span style="color:red;display:none;">错误！</span>
+<DIV class="login-btn forget-btn"><INPUT id=forget-btn value="提 交" type=submit></DIV></div>
+<div id="switch">
+	<p id="mes" style="margin:0;">登录成功！欢迎您！</p>
+	<a href="manager_title.html" target="_blank">进入标题后台管理页面</a><br/>
+	<a href="manager_img_text.html" target="_blank">进入图文后台管理页面</a><br/>
+	<a href="manager_img.html" target="_blank">进入图片后台管理页面</a><br/>
+	<a href="manager_text.html" target="_blank">进入文本后台管理页面</a><br/>
+	<a href="manager_mail.html" target="_blank">进入留言后台管理页面</a>
+</div>
+</DIV>
+<DIV id=login-copyright>2015  ZHC <A href="../main/main.action" >www.ZHCCH.com</A> </DIV>
+
+<SCRIPT type=text/javascript src="js/jquery-1.4.3.js"></SCRIPT>
+<SCRIPT>
+	var pathName = window.document.location.pathname;
+	var rootPath = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+	$(document).ready(function() { 
+		$("#logo").css("margin-top", ($(window).height()-460)/2+"px");$("#username").focus();$("#forget-password").click(function (e) {$("#loginform").hide();$("#forgotform").show(200);e.preventDefault();});
+		var id=-1;
+		$("#forget-btn").click(function (e) {
+		if($('#answer').val()=='' || $('#forget_username').val()==''){
+			$('.control-group').next().show();
+			return ;
+		}
+		id=1;
+		var url=encodeURI($('#answer').val(),'utf-8');
+			$.ajax({
+				url:rootPath+'/ajax/checkAnswer.action',
+				type:'post',
+				dataType:'json',
+				data:{
+					'forget_answer':url,
+					'username':$('#forget_username').val()
+				},
+				success:function(result){
+				console.log("success-----")
+					if(result.status==0){
+						$("#loginform").slideDown(200);$("#forgotform").slideUp(200);e.preventDefault();
+						$('#info').text('请重新设置用户名和密码并登陆').css('color','red');
+						id=result.result_Val;
+		console.log(id);
+					}else{
+						$('.control-group').next().show();
+					}
+				},
+				error:function(){
+				console.log("error---")
+					$('.control-group').next().show();
+				},
+				async:false
+			});
+		});
+		$('#login-btn').click(function(){
+			if($('#username').val()=='' || $('#password').val()==''){
+				$('#error_in').show();
+				return ;
+			}
+			$.ajax({
+				url:rootPath+'/ajax/checkLogin.action',
+				type:'post',
+				dataType:'json',
+				data:{
+					'id':id,
+					'username':$('#username').val(),
+					'password':$('#password').val()
+				},
+				success:function(result){
+					if(result.status==0){
+						$('#switch').show().find('#mes').text($('#switch #mes').text()+$('#username').val());
+						$('#loginform').hide();
+					}else{
+						$('#error_in').show();
+					}
+				},
+				error:function(){
+					$('#error_in').show();
+				},
+				async:false
+			});
+		});
+	});
+	
+</SCRIPT>
+</BODY></HTML>

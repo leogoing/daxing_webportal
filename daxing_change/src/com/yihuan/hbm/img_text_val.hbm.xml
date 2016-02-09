@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yihuan.entity.Img_Text_Val" table="img_text_val" lazy="true" dynamic-update="true" dynamic-insert="true">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="classify" type="java.lang.Integer" column="classify"></property>
+		<property name="queue" type="java.lang.Integer" column="queue"></property>
+		<property name="identity_id" type="java.lang.Integer" column="identity_id"></property>
+		<property name="status" type="java.lang.Integer" column="status"></property>
+		<property name="custom_title" type="java.lang.String" column="custom_title"></property>
+		<property name="text_val" type="java.lang.String" column="text_val"></property>
+		<property name="url" type="java.lang.String" column="url"></property>
+		<property name="create_time" type="java.sql.Date" column="create_time"></property>
+		<property name="last_modify_time" type="java.sql.Date" column="last_modify_time"></property>
+		<property name="desc_text" type="java.lang.String" column="desc_text"></property>
+		<property name="page_num" type="java.lang.Integer" column="page_num"></property>
+		<many-to-one name="img" lazy="proxy" insert="false" update="false" cascade="delete" unique="true" column="identity_id" class="com.yihuan.entity.Img"  property-ref="identity_id" ></many-to-one>
+		<many-to-one name="text_Val" lazy="proxy"  unique="true" cascade="delete" column="identity_id" insert="false" update="false" class="com.yihuan.entity.Text_Val"  property-ref="identity_id">
+		</many-to-one>
+		<!--<many-to-one name="dept" lazy="proxy" insert="false" update="false" cascade="none" column="classify" class="com.yihuan.entity.Dept" property-ref="classify_num" >
+		</many-to-one>-->
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,8 @@
+/* table切换样式  */
+
+/* 标题格样式 */
+#table_change td{
+	font-size: 12px;
+	color: #000;
+	line-height: 20px;
+}

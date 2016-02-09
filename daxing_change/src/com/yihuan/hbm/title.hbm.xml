@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.yihuan.entity.Title" table="title">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="classify" type="java.lang.Integer" column="classify"></property>
+		<property name="queue" type="java.lang.Integer" column="queue"></property>
+		<property name="identity_id" type="java.lang.Integer" column="identity_id"></property>
+		<property name="status" type="java.lang.Integer" column="status"></property>
+		<property name="title_val" type="java.lang.String" column="title_val"></property>
+		<property name="url" type="java.lang.String" column="url"></property>
+		<property name="modify_time" type="java.sql.Date" column="modify_time"></property>
+		<property name="desc_text" type="java.lang.String" column="desc_text"></property>
+		<property name="page_num" type="java.lang.Integer" column="page_num"/>
+		<many-to-one name="text_Val" unique="true" insert="false" update="false" cascade="none" class="com.yihuan.entity.Text_Val" column="identity_id" property-ref="identity_id">
+		</many-to-one>
+		<!--<many-to-one name="dept" insert="false" update="false" cascade="none" column="classify" class="com.yihuan.entity.Dept" property-ref="classify_num" >
+		</many-to-one>-->
+	</class>
+</hibernate-mapping>

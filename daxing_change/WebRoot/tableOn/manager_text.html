@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>后台管理页面</title>
+	
+    <meta http-equiv="content-type" content="text/html; charset=gbk">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	
+	<style type="text/css">
+		*{
+			margin:0px;
+			padding:0px;
+		}
+		#frame{
+			margin: 10px;
+		}
+		table{
+			/*border-collapse:collapse;*/
+			margin: 0 auto;
+			width: 2420px;
+		}
+		table thead tr{
+			height: 50px;
+		}
+		table td{
+			padding: 10px;
+		}
+		#table_title{
+			height: 60px;
+			text-align:center;
+			font-size: 38px;
+		}
+		#foot{
+			height: 70px;
+			text-align: center;
+		}
+		.button{
+			margin:20px;
+			height:30px;
+			width:80px;
+		}
+		.num_input{
+			width: 50px;
+			height: 28px;
+		}
+		.text_input{
+			height:28px;
+		}
+		.del{
+			background-color:rgba(170, 36, 36, 0.76);
+		}
+	</style>
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript">
+		var pathName = window.document.location.pathname;
+		var path = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+		$(function(){
+			main();
+			
+			$('#add').click(function(){
+				var tr=$(s_tr(false));
+				$('#table').append(tr);
+			});
+			
+			$('#table').on('change','.status',function(){
+				if($(this).val()==-1){
+					$(this).parent().parent().addClass('del');
+				}else{
+					$(this).parent().parent().removeClass('del');
+				}
+			});
+			
+			$('#delete').click(function(){
+				var arr=search_check(3);
+				if(arr.length==0){
+					alert('请选择要删除的记录！');
+					return ;
+				}
+				if(!confirm('确定要执行这'+arr.length+'条记录的删除操作吗？')){
+					return ;
+				}
+				$.ajax({
+					url:path+'/ajax_manager/firstDeleteTexts.action',
+					dataType:'json',
+					type:'post',
+					data:{'jsonTexts':JSON.stringify(arr)},
+					success:function(result){
+						if(result.status==0){
+							for(i=0;i<result.result_Val;i++){
+								$('.check[value='+arr[i]+']').parent().parent().addClass('del').find('.status').val(-1);
+							}
+						}
+						alert(result.message);
+					},
+					error:function(){
+						alert('删除错误！');
+					},
+					async:false
+				});
+			});
+			
+			$('#modify').click(function(){
+				var arr=search_check(2);
+				if(arr.length==0){
+					alert('请选择要修改的记录！');
+					return ;
+				}
+				if(!confirm('确定要执行这'+arr.length+'条记录的修改操作吗？')){
+					return ;
+				}
+				$.ajax({
+					url:path+'/ajax_manager/updateTexts.action',
+					dataType:'json',
+					type:'post',
+					data:{'jsonTexts':JSON.stringify(arr)},
+					success:function(result){
+						if(result==0){
+							console.log('good');
+						}
+						alert(result.message);
+					},
+					error:function(){
+						alert('修改错误！');
+					},
+					async:false
+				});
+			});
+			
+			$('#goDie').click(function(){
+				var arr=search_check(3);
+				if(arr.length==0){
+					alert('请选择要彻底删除的记录！');
+					return ;
+				}
+				if(!confirm('确定要执行这'+arr.length+'条记录的彻底删除操作吗？')){
+					return ;
+				}
+				$.ajax({
+					url:path+'/ajax_manager/lastDeleteTexts.action',
+					dataType:'json',
+					type:'post',
+					data:{'jsonTexts':JSON.stringify(arr)},
+					success:function(result){
+						if(result.status==0){
+							for(i=0;i<result.result_Val;i++){
+								$('.check[value='+arr[i]+']').parent().parent().remove();
+							}
+						}
+						alert(result.message);
+					},
+					error:function(){
+						alert('彻底删除错误！');
+					},
+					async:false
+				});
+			});
+			
+			$('#save').click(function(){
+				var arr=search_check(1);
+				
+				if(arr.length==0){
+					alert('请选择要保存的记录！');
+					return ;
+				}
+				if(!confirm('确定要执行这'+arr.length+'条记录的保存操作吗？')){
+					return ;
+				}
+				$.ajax({
+					url:path+'/ajax_manager/saveTexts.action',
+					dataType:'json',
+					type:'post',
+					data:{'jsonTexts':JSON.stringify(arr)},
+					success:function(result){
+						if(result==0){
+						console.log('ok');
+							for(i=0;i<result.result_Val.length;i++){
+								$('.check[value='+arr[i]+']').parent().parent().find('.id').val(result.result_Val[i]);
+							}
+						}
+						alert(result.message);
+					},
+					error:function(){
+						alert('保存错误！');
+					},
+					async:false
+				});
+			});
+			
+			$('#refresh').click(function(){
+				$('#table tr:gt(0)').remove();
+				main();
+			});
+			
+		});
+		
+		function main(){
+			$.ajax({
+				url:path+'/ajax_manager/findAllTexts.action',
+				dataType:'json',
+				type:'post',
+				data:{},
+				success:function(result){
+					if(result.status==0){
+						var val=result.result_Val;
+						for(i=0;i<val.length;i++){
+    						var tr=$(s_tr(val[i],i));
+    						tr.find('.page_num1').val(parseInt(val[i].page_num/10)).next('.page_num2').val(val[i].page_num%10);
+    						tr.find('.status').val(val[i].status);
+    						if(val[i].status==-1){
+    							tr.addClass('del');
+    						}
+							$('#table').append(tr);
+						}
+					}else{
+						alert(result.message);
+						if(result.status==-1){
+							window.location.href=path+"/tableOn/login.html";
+						}
+					}
+				},
+				error:function(){
+					alert('查找内容异常！');
+				}
+			});
+		}
+		
+		function s_tr(val,i){
+			var tr='<tr>'+
+						'<td><label for="check_'+(i!=undefined?i:'')+'">操作</label> <input id="check_'+(i!=undefined?i:'')+'" class="check" value="'+(val.id!=undefined?val.id:'')+'" type="checkbox"/></td>'+
+						'<td><input readonly="readonly" class="id num_input" type="text" value="'+(val.id!=undefined?val.id:'自动')+'"/></td>'+
+    					'<td><input class="classify num_input" type="text" value="'+(val.classify!=undefined?val.classify:'')+'"/></td>'+
+    					'<td><input class="queue num_input" type="text" value="'+(val.queue!=undefined?val.queue:'')+'"/></td>'+
+    					'<td>自动<input class="identity_id1" type="checkbox" /> 自定义<input class="identity_id2 num_input" type="text" value="'+(val.identity_id!=undefined?val.identity_id:'')+'"/></td>'+
+    					'<td>'+
+    						'<select class="status">'+
+    							'<option>0</option>'+
+    							'<option>1</option>'+
+    							'<option>-1</option>'+
+    						'</select>'+
+    					'</td>'+
+   						'<td><textarea class="custom_title " cols="45">'+(val.custom_title!=undefined?val.custom_title:'')+'</textarea></td>'+
+						'<td><textarea class="content_text " cols="85" rows="5">'+(val.content_text!=undefined?val.content_text:'').replace(/<br\/>/ig,'&h')+'</textarea></td>'+
+    					'<td><input class="desc_text text_input" type="text" value="'+(val.desc_text!=undefined?val.desc_text:'')+'"/></td>'+
+    					'<td><input class="create_time text_input" readonly="readonly" type="text" value="'+(val.create_time!=undefined?val.create_time:'插入添加时生成')+'"/></td>'+
+    					'<td><input class="last_modify_time text_input" readonly="readonly" type="text" value="'+(val.last_modify_time!=undefined?val.last_modify_time:'修改时生成')+'"/></td>'+
+    					'<td>'+
+    						'<select class="page_num1">'+
+    							'<option>0</option>'+
+    							'<option>1</option>'+
+    						'</select> '+
+    						'<select class="page_num2">'+
+    							'<option>1</option>'+
+    							'<option>2</option>'+
+   	 							'<option>3</option>'+
+    							'<option>4</option>'+
+    							'<option>5</option>'+
+    							'<option>6</option>'+
+    						'</select>'+
+    					'</td>'+
+    				'</tr>';
+    		return tr;
+		}
+		
+		function search_check(type){
+			var arr=[];
+			$('.check').each(function(i){
+				if($(this)[0].checked){
+				var tr=$(this).parent().parent();
+					if(type==1 && !$(this).val()){
+						var title=create_title(-1,tr.find('.classify').val(),tr.find('.queue').val(),(tr.find('.identity_id1')[0].checked?-1:parseInt(tr.find('.identity_id2').val())),tr.find('.status').val(),
+										encodeURI(tr.find('.content_text').val(),'utf-8'),encodeURI(tr.find('.custom_title').val(),'utf-8'),encodeURI(tr.find('.desc_text').val(),'utf-8'),
+										null,null,tr.find('.page_num1').val()+tr.find('.page_num2').val());
+						arr.push(title);
+					}else if($(this).val()){
+						if(type==2){
+							var title=create_title($(this).val(),tr.find('.classify').val(),tr.find('.queue').val(),(tr.find('.identity_id1')[0].checked?-1:parseInt(tr.find('.identity_id2').val())),tr.find('.status').val(),
+										encodeURI(tr.find('.content_text').val().replace(/\s/ig,'&nbsp;'),'utf-8'),encodeURI(tr.find('.custom_title').val(),'utf-8'),encodeURI(tr.find('.desc_text').val(),'utf-8'),
+										null,null,tr.find('.page_num1').val()+tr.find('.page_num2').val());
+							arr.push(title);
+						}
+						if(type==3){
+							arr.push($(this).val());
+						}
+					}
+				}
+			});
+			return arr;
+		}
+		
+		function create_title(id,classify,queue,identity_id,status,content_text,custom_title,desc_text,create_time,last_modify_time,page_num){
+			var title={
+				'id':id,
+				'classify':classify,
+				'queue':queue,
+				'identity_id':identity_id,
+				'status':status,
+				'content_text':content_text,
+				'custom_title':custom_title,
+				'desc_text':desc_text,
+				'create_time':create_time,
+				'last_modify_time':last_modify_time,
+				'page_num':page_num
+			};
+			return title;
+		};
+	</script>
+  </head>
+  
+  <body>
+    
+    <div id="frame">
+    	<p id="table_title">图文内容后台操作表</p>
+    	<div id="div">
+    		<table id="table" border="2px" cellspacing="0px" cellpadding="30px" >
+    			<thead>
+    				<tr>
+    					<td></td>
+    					<th>序列号</th>
+    					<th>分类</th>
+    					<th>排列顺序</th>
+    					<th> 身份号</th>
+    					<th> 状态</th>
+    					<th>文本标题</th>
+    					<th>文本内容</th>
+    					<th>备注描述</th>
+    					<th>创建时间</th>
+    					<th>修改时间</th>
+    					<th>所在页面</th>
+    				</tr>
+    			</thead>
+    		</table>
+    	</div>
+    	<div id="foot">
+    		<button class="button" id="modify">修改</button>
+    		<button class="button" id="add">添加一列</button>
+    		<button class="button" id="save">确认添加</button>
+    		<button class="button" id="delete">删除</button>
+    		<button class="button" id="goDie">彻底删除</button>
+    		<button class="button" id="refresh">刷新</button>
+    	</div>
+    </div>
+    
+  </body>
+  
+</html>
